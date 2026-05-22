@@ -79,7 +79,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
-        [InlineKeyboardButton("🎨 Promtlar kanaliga o'tish", url=f"https://t.me/{PROMPTS_CHANNEL.lstrip('@')}")],
+        [InlineKeyboardButton("🎨 Promtlar kanaliga o'tish", url=f"https://t.me/{PROMTS_CHANNEL.lstrip('@')}")],
     ]
     markup = InlineKeyboardMarkup(keyboard)
 
@@ -96,10 +96,10 @@ async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.callback_query.message.reply_text(text, parse_mode="Markdown", reply_markup=markup)
 
 
-async def send_prompt(update: Update, context: ContextTypes.DEFAULT_TYPE, prompt_id: str):
-    prompt = PROMPTS.get(prompt_id)
+async def send_prompt(update: Update, context: ContextTypes.DEFAULT_TYPE, promt_id: str):
+    promt = PROMTS.get(prompt_id)
 
-    if not prompt:
+    if not promt:
         if update.message:
             await update.message.reply_text("❌ Promt topilmadi.")
         return
