@@ -56,7 +56,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not is_subscribed:
         keyboard = [
             [InlineKeyboardButton("📢 TolibTokyo", url="https://t.me/TolibTokyo")],
-            [InlineKeyboardButton("🎨 AI Prompt New", url="https://t.me/ai_prompt_new")],
+            [InlineKeyboardButton("🎨 AI Promt New", url="https://t.me/ai_promt_new")],
             [InlineKeyboardButton("✅ Obunani tekshirish", callback_data="check_sub")],
         ]
         markup = InlineKeyboardMarkup(keyboard)
@@ -79,15 +79,15 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
-        [InlineKeyboardButton("🎨 Promptlar kanaliga o'tish", url=f"https://t.me/{PROMPTS_CHANNEL.lstrip('@')}")],
+        [InlineKeyboardButton("🎨 Promtlar kanaliga o'tish", url=f"https://t.me/{PROMPTS_CHANNEL.lstrip('@')}")],
     ]
     markup = InlineKeyboardMarkup(keyboard)
 
     text = (
-        "🤖 *AI Prompt Bot*\n\n"
-        "Bu botda siz tayyor AI promptlarni topasiz.\n\n"
-        "👇 Promptlar kanalida har bir rasmning ostida "
-        "*\"Promptni olish\"* tugmasi bor — bosing va promptni oling!"
+        "🤖 *AI Promt Bot*\n\n"
+        "Bu botda siz tayyor AI promtlarni topasiz.\n\n"
+        "👇 Promtlar kanalida har bir rasmning ostida "
+        "*\"Promtni olish\"* tugmasi bor — bosing va promptni oling!"
     )
 
     if update.message:
@@ -101,14 +101,14 @@ async def send_prompt(update: Update, context: ContextTypes.DEFAULT_TYPE, prompt
 
     if not prompt:
         if update.message:
-            await update.message.reply_text("❌ Prompt topilmadi.")
+            await update.message.reply_text("❌ Promt topilmadi.")
         return
 
     text = (
-        f"🎨 *{prompt['title']}*\n"
-        f"📁 Kategoriya: {prompt['category']}\n\n"
-        f"📋 *Prompt:*\n`{prompt['prompt']}`\n\n"
-        "👆 Yuqoridagi promptni bosib nusxalang!"
+        f"🎨 *{promt['title']}*\n"
+        f"📁 Kategoriya: {promt['category']}\n\n"
+        f"📋 *Promt:*\n`{promt['promt']}`\n\n"
+        "👆 Yuqoridagi promtni bosib nusxalang!"
     )
 
     if update.message:
