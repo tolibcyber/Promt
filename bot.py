@@ -5,29 +5,29 @@ import os
 TOKEN = os.getenv("BOT_TOKEN")
 
 CHANNELS = ["@TolibTokyo", "@ai_promt_news"]
-PROMPTS_CHANNEL = "@ai_promt_news"
+PROMTS_CHANNEL = "@ai_promt_news"
 
 # =============================================
-# PROMPTLAR — yangi prompt qo'shish uchun
+# PROMTLAR — yangi prompt qo'shish uchun
 # shu ro'yxatga yangi {} blok qo'shing
 # =============================================
-PROMPTS = {
+PROMTS = {
     "p001": {
         "title": "Cinematik portret",
         "category": "Portret",
-        "prompt": "Use uploaded image as a reference person. Сохранить внешность и идентичность человека на 100% без изменений: лицо, форму головы, глаза, волосы, телосложение, оттенок кожи и естественные черты. Первое изображение image_1 использовать как главный template reference — полностью сохранить композицию, позу, ракурс камеры, расположение рук, освещение, интерьер кабинета и расположение объектов один к одному одинаково, заменив только лицо на лицо из reference image. Остальние фото которое должен созданный персона мои фото. Создать ультрареалистичный официальный портрет мужчины в государственном кабинете. Мужчина сидит за тёмным деревянным столом в кожаном кресле, руки спокойно сложены перед собой, строгий уверенный взгляд прямо в камеру. На нём тёмно-синий классический костюм, белая рубашка и тёмный галстук. Слева расположен флаг Узбекистана, на стене позади — официальный портрет президента в рамке, справа книжный шкаф. Изменить текст на настольной табличке на “Tolibjon Mardonov”, полностью сохранив оригинальный дизайн таблички, перспективу и реалистичную гравировку. Тёплое офисное освещение, clean presidential atmosphere, symmetrical centered composition, eye-level camera, 85mm lens, shallow depth of field, RAW DSLR quality, realistic skin texture, natural shadows, real-person photo, not AI-looking, no plastic skin, no HDR, no over-retouching, no distortion, no watermark."
+        "promt": "Use uploaded image as a reference person. Сохранить внешность и идентичность человека на 100% без изменений: лицо, форму головы, глаза, волосы, телосложение, оттенок кожи и естественные черты. Первое изображение image_1 использовать как главный template reference — полностью сохранить композицию, позу, ракурс камеры, расположение рук, освещение, интерьер кабинета и расположение объектов один к одному одинаково, заменив только лицо на лицо из reference image. Остальние фото которое должен созданный персона мои фото. Создать ультрареалистичный официальный портрет мужчины в государственном кабинете. Мужчина сидит за тёмным деревянным столом в кожаном кресле, руки спокойно сложены перед собой, строгий уверенный взгляд прямо в камеру. На нём тёмно-синий классический костюм, белая рубашка и тёмный галстук. Слева расположен флаг Узбекистана, на стене позади — официальный портрет президента в рамке, справа книжный шкаф. Изменить текст на настольной табличке на “Tolibjon Mardonov”, полностью сохранив оригинальный дизайн таблички, перспективу и реалистичную гравировку. Тёплое офисное освещение, clean presidential atmosphere, symmetrical centered composition, eye-level camera, 85mm lens, shallow depth of field, RAW DSLR quality, realistic skin texture, natural shadows, real-person photo, not AI-looking, no plastic skin, no HDR, no over-retouching, no distortion, no watermark."
     },
     "p002": {
         "title": "Cinematik portret",
         "category": "Portret",
-        "prompt":"Use uploaded image as a reference person. Сохранить внешность и идентичность человека на 100% без изменений: лицо, причёску, глаза, форму головы, телосложение и естественные черты.Создать ультрареалистичный cinematic street portrait мужчины в тёмном luxury style. Мужчина стоит перед чёрным автомобилем на узкой городской улице между высокими зданиями, корпус прямо, взгляд уверенный и холодный в камеру. Одна рука в чёрной кожаной перчатке поднята к губам жестом “shhh”. На нём длинное чёрное пальто и полностью чёрный outfit. Фон — тёмный мегаполис с мокрой дорогой, дорогими машинами и глубоким urban bokeh. Холодное пасмурное освещение, moody атмосфера, low-key cinematic lighting, лёгкий туман, desaturated colors. Камера на уровне груди, medium full shot, 85mm lens, shallow depth of field, RAW DSLR quality, realistic skin texture, natural shadows, cinematic contrast, real-person photo, not AI-looking, no plastic skin, no HDR, no over-retouching, no distortion, no watermark."
+        "promt":"Use uploaded image as a reference person. Сохранить внешность и идентичность человека на 100% без изменений: лицо, причёску, глаза, форму головы, телосложение и естественные черты.Создать ультрареалистичный cinematic street portrait мужчины в тёмном luxury style. Мужчина стоит перед чёрным автомобилем на узкой городской улице между высокими зданиями, корпус прямо, взгляд уверенный и холодный в камеру. Одна рука в чёрной кожаной перчатке поднята к губам жестом “shhh”. На нём длинное чёрное пальто и полностью чёрный outfit. Фон — тёмный мегаполис с мокрой дорогой, дорогими машинами и глубоким urban bokeh. Холодное пасмурное освещение, moody атмосфера, low-key cinematic lighting, лёгкий туман, desaturated colors. Камера на уровне груди, medium full shot, 85mm lens, shallow depth of field, RAW DSLR quality, realistic skin texture, natural shadows, cinematic contrast, real-person photo, not AI-looking, no plastic skin, no HDR, no over-retouching, no distortion, no watermark."
     }, 
     
     # ---- yangi prompt shu yerdan pastga qo'shing ----
     # "p004": {
     #     "title": "Prompt nomi",
     #     "category": "Kategoriya",
-    #     "prompt": "Bu yerga to'liq promptni yozing..."
+    #     "promt": "Bu yerga to'liq promptni yozing..."
     # },
 }
 
