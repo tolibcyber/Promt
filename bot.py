@@ -8,7 +8,7 @@ CHANNELS = ["@TolibTokyo", "@ai_promt_news"]
 PROMTS_CHANNEL = "@ai_promt_news"
 
 # =============================================
-# PROMTLAR — yangi prompt qo'shish uchun
+# PROMTLAR — yangi promt qo'shish uchun
 # shu ro'yxatga yangi {} blok qo'shing
 # =============================================
 PROMTS = {
@@ -23,11 +23,11 @@ PROMTS = {
         "promt":"Use uploaded image as a reference person. Сохранить внешность и идентичность человека на 100% без изменений: лицо, причёску, глаза, форму головы, телосложение и естественные черты.Создать ультрареалистичный cinematic street portrait мужчины в тёмном luxury style. Мужчина стоит перед чёрным автомобилем на узкой городской улице между высокими зданиями, корпус прямо, взгляд уверенный и холодный в камеру. Одна рука в чёрной кожаной перчатке поднята к губам жестом “shhh”. На нём длинное чёрное пальто и полностью чёрный outfit. Фон — тёмный мегаполис с мокрой дорогой, дорогими машинами и глубоким urban bokeh. Холодное пасмурное освещение, moody атмосфера, low-key cinematic lighting, лёгкий туман, desaturated colors. Камера на уровне груди, medium full shot, 85mm lens, shallow depth of field, RAW DSLR quality, realistic skin texture, natural shadows, cinematic contrast, real-person photo, not AI-looking, no plastic skin, no HDR, no over-retouching, no distortion, no watermark."
     }, 
     
-    # ---- yangi prompt shu yerdan pastga qo'shing ----
+    # ---- yangi promt shu yerdan pastga qo'shing ----
     # "p004": {
-    #     "title": "Prompt nomi",
+    #     "title": "Promt nomi",
     #     "category": "Kategoriya",
-    #     "promt": "Bu yerga to'liq promptni yozing..."
+    #     "promt": "Bu yerga to'liq promtni yozing..."
     # },
 }
 
@@ -56,7 +56,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not is_subscribed:
         keyboard = [
             [InlineKeyboardButton("📢 TolibTokyo", url="https://t.me/TolibTokyo")],
-            [InlineKeyboardButton("🎨 AI Promt New", url="https://t.me/ai_promt_new")],
+            [InlineKeyboardButton("🎨 AI Promt News", url="https://t.me/ai_promt_news")],
             [InlineKeyboardButton("✅ Obunani tekshirish", callback_data="check_sub")],
         ]
         markup = InlineKeyboardMarkup(keyboard)
@@ -67,10 +67,10 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
         return
 
-    # Agar prompt ID bilan kelgan bo'lsa
+    # Agar promt ID bilan kelgan bo'lsa
     if args and args[0].startswith("p"):
-        prompt_id = args[0]
-        await send_prompt(update, context, prompt_id)
+        promt_id = args[0]
+        await send_promt(update, context, promt_id)
         return
 
     # Asosiy menyu
@@ -87,7 +87,7 @@ async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "🤖 *AI Promt Bot*\n\n"
         "Bu botda siz tayyor AI promtlarni topasiz.\n\n"
         "👇 Promtlar kanalida har bir rasmning ostida "
-        "*\"Promtni olish\"* tugmasi bor — bosing va promptni oling!"
+        "*\"Promtni olish\"* tugmasi bor — bosing va promtni oling!"
     )
 
     if update.message:
@@ -96,8 +96,8 @@ async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.callback_query.message.reply_text(text, parse_mode="Markdown", reply_markup=markup)
 
 
-async def send_prompt(update: Update, context: ContextTypes.DEFAULT_TYPE, promt_id: str):
-    promt = PROMTS.get(prompt_id)
+async def send_promt(update: Update, context: ContextTypes.DEFAULT_TYPE, promt_id: str):
+    promt = PROMTS.get(promt_id)
 
     if not promt:
         if update.message:
