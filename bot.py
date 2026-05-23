@@ -20,6 +20,11 @@ PROMTS = {
         "category": "Portret",
         "promt": "Use uploaded image as a reference person. Сохранить внешность и идентичность человека на 100% без изменений: лицо, причёску, глаза, форму головы, телосложение и естественные черты.Создать ультрареалистичный cinematic street portrait мужчины в тёмном luxury style. Мужчина стоит перед чёрным автомобилем на узкой городской улице между высокими зданиями, корпус прямо, взгляд уверенный и холодный в камеру. Одна рука в чёрной кожаной перчатке поднята к губам жестом 'shhh'. На нём длинное чёрное пальто и полностью чёрный outfit. Фон — тёмный мегаполис с мокрой дорогой, дорогими машинами и глубоким urban bokeh. Холодное пасмурное освещение, moody атмосфера, low-key cinematic lighting, лёгкий туман, desaturated colors. Камера на уровне груди, medium full shot, 85mm lens, shallow depth of field, RAW DSLR quality, realistic skin texture, natural shadows, cinematic contrast, real-person photo, not AI-looking, no plastic skin, no HDR, no over-retouching, no distortion, no watermark."
     },
+    "p003": {
+        "title": "Fitnes portret",
+        "category": "Portret",
+        "promt": "Use uploaded image as a reference person. Сохранить внешность и идентичность человека на 100% без изменений: лицо, волосы, телосложение, мышцы, кожу, пропорции тела и естественные черты. Создать ультрареалистичное gym mirror selfie мужчины в современном тренажёрном зале. Мужчина стоит перед зеркалом с телефоном в руке, спокойный уверенный взгляд слегка вниз, natural relaxed pose. На нём облегающая белая athletic футболка, чёрные jogger pants, wrist wraps и проводные наушники. Фон — realistic gym equipment, зеркала и металлические тренажёры с мягким background blur. Естественное indoor gym lighting, realistic skin texture, visible muscle definition without exaggeration, RAW iPhone photo aesthetic, slight grain, candid fitness atmosphere, natural shadows, real-person photo, not AI-looking, no plastic skin, no fake muscles, no HDR, no over-retouching, no distortion, no watermark."
+    },
 }
  
 # Foydalanuvchilarni saqlash uchun (xotira)
