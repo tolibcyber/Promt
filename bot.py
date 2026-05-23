@@ -25,6 +25,17 @@ PROMTS = {
         "category": "Portret",
         "promt": "Use uploaded image as a reference person. Сохранить внешность и идентичность человека на 100% без изменений: лицо, волосы, телосложение, мышцы, кожу, пропорции тела и естественные черты. Создать ультрареалистичное gym mirror selfie мужчины в современном тренажёрном зале. Мужчина стоит перед зеркалом с телефоном в руке, спокойный уверенный взгляд слегка вниз, natural relaxed pose. На нём облегающая белая athletic футболка, чёрные jogger pants, wrist wraps и проводные наушники. Фон — realistic gym equipment, зеркала и металлические тренажёры с мягким background blur. Естественное indoor gym lighting, realistic skin texture, visible muscle definition without exaggeration, RAW iPhone photo aesthetic, slight grain, candid fitness atmosphere, natural shadows, real-person photo, not AI-looking, no plastic skin, no fake muscles, no HDR, no over-retouching, no distortion, no watermark."
     },
+      "p004": {
+        "title": "Cinematik portret",
+        "category": "Portret",
+        "promt": "Use uploaded image as a reference person. Please transform the provided photograph into an ultra-realistic, cinematic artistic portrait without altering facial expression or expression. The man should appear seated on the ground in a relaxed and natural pose, elegant yet modern.He is dressed in a minimalist black top, paired with soft, gray jeans and chunky gray and white sneakers, giving him a contemporary urban aesthetic.The background should be an artistic monochrome (black and white) composition featuring a soft, blurred side profile of the same man; like a ghostly echo, it blends memory and presence.The overall atmosphere should convey a poetic, editorial, and timeless feel reminiscent of fine art fashion photography. Use soft, diffused studio lighting, subtle shadows, and shallow depth of field to emphasize emotion"
+    },
+     "p005": {
+        "title": "Cinematik portret",
+        "category": "Portret",
+        "promt": "Use uploaded image as a reference person. Сохранить внешность и идентичность девушки на 100% без изменений: лицо, глаза, губы, форму носа, волосы, оттенок кожи, телосложение и естественные черты.Создать ультрареалистичный lifestyle portrait девушки сидящей на полу в расслабленной естественной позе. Одна нога согнута ближе к камере, рука мягко касается головы, лёгкая спокойная улыбка и тёплый взгляд в объектив. На девушке чёрный облегающий лонгслив, серые relaxed-fit джинсы и светлые кроссовки. Волосы заплетены в длинную небрежную косу с мягкими выбившимися прядями. На фоне — большой monochrome portrait этой же девушки с мягким blur эффектом, создающий cinematic layered composition. Мягкий natural window light, neutral grey background, shallow depth of field, 85mm lens, realistic skin texture, natural shadows, RAW DSLR quality, cozy editorial aesthetic, real-person photo, not AI-looking, no plastic skin, no HDR, no over-retouching, no distortion, no watermark."
+    },
+
 }
  
 # Foydalanuvchilarni saqlash uchun (xotira)
