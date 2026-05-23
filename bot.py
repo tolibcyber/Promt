@@ -1,13 +1,14 @@
 import logging
-from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.ext import ApplicationBuilder, CommandHandler, CallbackQueryHandler, MessageHandler, filters, ContextTypes
 import os
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup, KeyboardButton
+from telegram.ext import ApplicationBuilder, CommandHandler, CallbackQueryHandler, MessageHandler, filters, ContextTypes
  
 TOKEN = os.getenv("BOT_TOKEN")
 ADMIN_ID = 7288739341
  
 CHANNELS = ["@TolibTokyo", "@ai_promt_news"]
 PROMTS_CHANNEL = "@ai_promt_news"
+SUPPORT_USERNAME = "@TolibDev"
  
 PROMTS = {
     "p001": {
@@ -25,17 +26,16 @@ PROMTS = {
         "category": "Portret",
         "promt": "Use uploaded image as a reference person. Сохранить внешность и идентичность человека на 100% без изменений: лицо, волосы, телосложение, мышцы, кожу, пропорции тела и естественные черты. Создать ультрареалистичное gym mirror selfie мужчины в современном тренажёрном зале. Мужчина стоит перед зеркалом с телефоном в руке, спокойный уверенный взгляд слегка вниз, natural relaxed pose. На нём облегающая белая athletic футболка, чёрные jogger pants, wrist wraps и проводные наушники. Фон — realistic gym equipment, зеркала и металлические тренажёры с мягким background blur. Естественное indoor gym lighting, realistic skin texture, visible muscle definition without exaggeration, RAW iPhone photo aesthetic, slight grain, candid fitness atmosphere, natural shadows, real-person photo, not AI-looking, no plastic skin, no fake muscles, no HDR, no over-retouching, no distortion, no watermark."
     },
-     "p004": {
+    "p004": {
         "title": "Cinematik portret",
         "category": "Portret",
-        "promt": "Use uploaded image as a reference person. Please transform the provided photograph into an ultra-realistic, cinematic artistic portrait without altering facial expression or expression. The man should appear seated on the ground in a relaxed and natural pose, elegant yet modern.He is dressed in a minimalist black top, paired with soft, gray jeans and chunky gray and white sneakers, giving him a contemporary urban aesthetic.The background should be an artistic monochrome (black and white) composition featuring a soft, blurred side profile of the same man; like a ghostly echo, it blends memory and presence.The overall atmosphere should convey a poetic, editorial, and timeless feel reminiscent of fine art fashion photography. Use soft, diffused studio lighting, subtle shadows, and shallow depth of field to emphasize emotion"
+        "promt": "Use uploaded image as a reference person. Please transform the provided photograph into an ultra-realistic, cinematic artistic portrait without altering facial expression or expression. The man should appear seated on the ground in a relaxed and natural pose, elegant yet modern.He is dressed in a minimalist black top, paired with soft, gray jeans and chunky gray and white sneakers, giving him a contemporary urban aesthetic.The background should be an artistic monochrome (black and white) composition featuring a soft, blurred side profile of the same man; like a ghostly echo, it blends memory and presence.The overall atmosphere should convey a poetic, editorial, and timeless feel reminiscent of fine art fashion photography. Use soft, diffused studio lighting, subtle shadows, and shallow depth of field to emphasize emotion"
     },
-     "p005": {
+    "p005": {
         "title": "Cinematik portret",
         "category": "Portret",
         "promt": "Use uploaded image as a reference person. Сохранить внешность и идентичность девушки на 100% без изменений: лицо, глаза, губы, форму носа, волосы, оттенок кожи, телосложение и естественные черты.Создать ультрареалистичный lifestyle portrait девушки сидящей на полу в расслабленной естественной позе. Одна нога согнута ближе к камере, рука мягко касается головы, лёгкая спокойная улыбка и тёплый взгляд в объектив. На девушке чёрный облегающий лонгслив, серые relaxed-fit джинсы и светлые кроссовки. Волосы заплетены в длинную небрежную косу с мягкими выбившимися прядями. На фоне — большой monochrome portrait этой же девушки с мягким blur эффектом, создающий cinematic layered composition. Мягкий natural window light, neutral grey background, shallow depth of field, 85mm lens, realistic skin texture, natural shadows, RAW DSLR quality, cozy editorial aesthetic, real-person photo, not AI-looking, no plastic skin, no HDR, no over-retouching, no distortion, no watermark."
     },
-
 }
  
 # Foydalanuvchilarni saqlash uchun (xotira)
@@ -45,6 +45,25 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
  
  
+# =============================================
+# PASTKI MENYU (Reply Keyboard)
+# =============================================
+def get_main_keyboard():
+    keyboard = [
+        [
+            KeyboardButton("🎨 Promt kanali"),
+            KeyboardButton("🎬 AI Video yasash"),
+        ],
+        [
+            KeyboardButton("🆘 Qo'llab-quvvatlash"),
+        ],
+    ]
+    return ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
+ 
+ 
+# =============================================
+# OBUNA TEKSHIRISH
+# =============================================
 async def check_subscription(user_id: int, context: ContextTypes.DEFAULT_TYPE) -> bool:
     for channel in CHANNELS:
         try:
@@ -56,11 +75,12 @@ async def check_subscription(user_id: int, context: ContextTypes.DEFAULT_TYPE) -
     return True
  
  
+# =============================================
+# /start
+# =============================================
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.effective_user
     args = context.args
- 
-    # Foydalanuvchini ro'yxatga olish
     user_ids.add(user.id)
  
     is_subscribed = await check_subscription(user.id, context)
@@ -87,25 +107,24 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await show_main_menu(update, context)
  
  
+# =============================================
+# ASOSIY MENYU
+# =============================================
 async def show_main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    keyboard = [
-        [InlineKeyboardButton("🎨 Promtlar kanaliga o'tish", url=f"https://t.me/{PROMTS_CHANNEL.lstrip('@')}")],
-    ]
-    markup = InlineKeyboardMarkup(keyboard)
- 
     text = (
         "🤖 *AI Promt Bot*\n\n"
         "Bu botda siz tayyor AI promtlarni topasiz.\n\n"
-        "👇 Promtlar kanalida har bir rasmning ostida "
-        "*\"Promtni olish\"* tugmasi bor — bosing va promtni oling!"
+        "👇 Quyidagi tugmalardan foydalaning:"
     )
- 
     if update.message:
-        await update.message.reply_text(text, parse_mode="Markdown", reply_markup=markup)
+        await update.message.reply_text(text, parse_mode="Markdown", reply_markup=get_main_keyboard())
     elif update.callback_query:
-        await update.callback_query.message.reply_text(text, parse_mode="Markdown", reply_markup=markup)
+        await update.callback_query.message.reply_text(text, parse_mode="Markdown", reply_markup=get_main_keyboard())
  
  
+# =============================================
+# PROMT YUBORISH
+# =============================================
 async def send_promt(update: Update, context: ContextTypes.DEFAULT_TYPE, promt_id: str):
     promt = PROMTS.get(promt_id)
  
@@ -128,35 +147,78 @@ async def send_promt(update: Update, context: ContextTypes.DEFAULT_TYPE, promt_i
  
  
 # =============================================
-# ADMIN PANEL
+# PASTKI TUGMALAR HANDLER
 # =============================================
- 
-async def admin(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.effective_user
+    text = update.message.text
+    user_ids.add(user.id)
  
-    if user.id != ADMIN_ID:
-        await update.message.reply_text("❌ Sizda ruxsat yo'q!")
+    # Admin broadcast xabar kutilayotgan bo'lsa
+    if user.id == ADMIN_ID and context.user_data.get("waiting_broadcast"):
+        context.user_data["waiting_broadcast"] = False
+        await update.message.reply_text(f"⏳ Yuborilmoqda... ({len(user_ids)} ta foydalanuvchi)")
+        success = 0
+        failed = 0
+        for uid in list(user_ids):
+            try:
+                await context.bot.send_message(chat_id=uid, text=text)
+                success += 1
+            except Exception:
+                failed += 1
+        await update.message.reply_text(
+            f"✅ *Yuborish yakunlandi!*\n\n"
+            f"✔️ Muvaffaqiyatli: *{success}* ta\n"
+            f"❌ Xatolik: *{failed}* ta",
+            parse_mode="Markdown"
+        )
         return
  
-    keyboard = [
-        [InlineKeyboardButton("📨 Hammaga xabar yuborish", callback_data="broadcast")],
-        [InlineKeyboardButton("👥 Foydalanuvchilar soni", callback_data="user_count")],
-    ]
-    markup = InlineKeyboardMarkup(keyboard)
+    # Tugmalar
+    if text == "🎨 Promt kanali":
+        keyboard = [[InlineKeyboardButton("📢 Kanalga o'tish", url=f"https://t.me/{PROMTS_CHANNEL.lstrip('@')}")]]
+        await update.message.reply_text(
+            "🎨 *Promt kanali*\n\n"
+            "Kanalimizda har kuni yangi AI promtlar chiqadi!\n"
+            "Har bir post ostida *\"Promt olish\"* tugmasi bor — bosing va nusxalang.",
+            parse_mode="Markdown",
+            reply_markup=InlineKeyboardMarkup(keyboard)
+        )
  
-    await update.message.reply_text(
-        f"⚙️ *Admin Panel*\n\n"
-        f"👥 Hozirgi foydalanuvchilar: *{len(user_ids)}* ta",
-        parse_mode="Markdown",
-        reply_markup=markup
-    )
+    elif text == "🎬 AI Video yasash":
+        keyboard = [[InlineKeyboardButton("📢 Kanalga o'tish", url=f"https://t.me/{PROMTS_CHANNEL.lstrip('@')}")]]
+        await update.message.reply_text(
+            "🎬 *AI Video yasash*\n\n"
+            "Tez kunda kanalimizda AI orqali video yasashning "
+            "*to'liq qo'llanmasi* chiqadi!\n\n"
+            "📌 Quyidagi mavzular yoritiladi:\n"
+            "• Kling AI bilan video yasash\n"
+            "• Rasmdan video qilish\n"
+            "• Promt yozish sirlari\n"
+            "• Bepul toollar ro'yxati\n\n"
+            "🔔 Kanalga obuna bo'ling — o'tkazib yubormang!",
+            parse_mode="Markdown",
+            reply_markup=InlineKeyboardMarkup(keyboard)
+        )
+ 
+    elif text == "🆘 Qo'llab-quvvatlash":
+        keyboard = [[InlineKeyboardButton("✉️ Admin bilan bog'lanish", url=f"https://t.me/{SUPPORT_USERNAME.lstrip('@')}")]]
+        await update.message.reply_text(
+            "🆘 *Qo'llab-quvvatlash*\n\n"
+            "Savollar yoki takliflar bo'lsa,\n"
+            "admin bilan to'g'ridan-to'g'ri bog'laning:",
+            parse_mode="Markdown",
+            reply_markup=InlineKeyboardMarkup(keyboard)
+        )
  
  
+# =============================================
+# INLINE TUGMALAR
+# =============================================
 async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
  
-    # Obuna tekshirish
     if query.data == "check_sub":
         is_subscribed = await check_subscription(query.from_user.id, context)
         if is_subscribed:
@@ -166,13 +228,11 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
         else:
             await query.answer("❌ Hali obuna bo'lmadingiz!", show_alert=True)
  
-    # Foydalanuvchilar soni
     elif query.data == "user_count":
         if query.from_user.id != ADMIN_ID:
             return
         await query.message.reply_text(f"👥 Jami foydalanuvchilar: *{len(user_ids)}* ta", parse_mode="Markdown")
  
-    # Broadcast boshlash
     elif query.data == "broadcast":
         if query.from_user.id != ADMIN_ID:
             return
@@ -184,39 +244,23 @@ async def button_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
  
  
-async def handle_broadcast_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    user = update.effective_user
- 
-    if user.id != ADMIN_ID:
+# =============================================
+# ADMIN PANEL
+# =============================================
+async def admin(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if update.effective_user.id != ADMIN_ID:
+        await update.message.reply_text("❌ Sizda ruxsat yo'q!")
         return
  
-    if not context.user_data.get("waiting_broadcast"):
-        return
- 
-    context.user_data["waiting_broadcast"] = False
-    message_text = update.message.text
- 
-    if message_text == "/cancel":
-        await update.message.reply_text("❌ Bekor qilindi.")
-        return
- 
-    await update.message.reply_text(f"⏳ Yuborilmoqda... ({len(user_ids)} ta foydalanuvchi)")
- 
-    success = 0
-    failed = 0
- 
-    for uid in list(user_ids):
-        try:
-            await context.bot.send_message(chat_id=uid, text=message_text)
-            success += 1
-        except Exception:
-            failed += 1
- 
+    keyboard = [
+        [InlineKeyboardButton("📨 Hammaga xabar yuborish", callback_data="broadcast")],
+        [InlineKeyboardButton("👥 Foydalanuvchilar soni", callback_data="user_count")],
+    ]
     await update.message.reply_text(
-        f"✅ *Yuborish yakunlandi!*\n\n"
-        f"✔️ Muvaffaqiyatli: *{success}* ta\n"
-        f"❌ Xatolik: *{failed}* ta",
-        parse_mode="Markdown"
+        f"⚙️ *Admin Panel*\n\n"
+        f"👥 Hozirgi foydalanuvchilar: *{len(user_ids)}* ta",
+        parse_mode="Markdown",
+        reply_markup=InlineKeyboardMarkup(keyboard)
     )
  
  
@@ -231,7 +275,7 @@ def main():
     app.add_handler(CommandHandler("admin", admin))
     app.add_handler(CommandHandler("cancel", cancel))
     app.add_handler(CallbackQueryHandler(button_handler))
-    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_broadcast_message))
+    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text))
     print("Bot ishga tushdi ✅")
     app.run_polling()
  
