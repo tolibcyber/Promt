@@ -192,7 +192,7 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "Tez kunda kanalimizda AI orqali video yasashning "
             "*to'liq qo'llanmasi* chiqadi!\n\n"
             "📌 Quyidagi mavzular yoritiladi:\n"
-            "• Kling AI bilan video yasash\n"
+            "• AI bilan video yasash\n"
             "• Rasmdan video qilish\n"
             "• Promt yozish sirlari\n"
             "• Bepul toollar ro'yxati\n\n"
